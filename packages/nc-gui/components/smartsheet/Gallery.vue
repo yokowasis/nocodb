@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import GalleryNew2 from './GalleryNew2.vue'
 import { ViewTypes, isVirtualCol } from 'nocodb-sdk'
 import type { Row as RowType } from '#imports'
 
@@ -321,6 +322,7 @@ watch(
                   <img class="object-contain w-[48px] h-[48px]" src="~assets/icons/FileIconImageBox.png" />
                 </div>
               </template>
+              <GalleryNew2 description="This is a dynamic description passed as a prop." :title="displayField.title" />
               <div class="flex flex-col gap-3 !children:pointer-events-none">
                 <h2 v-if="displayField" class="nc-card-display-value-wrapper">
                   <template v-if="!isRowEmpty(record, displayField)">
