@@ -310,7 +310,7 @@ watch(
                     <LazyCellAttachmentPreviewImage
                       v-if="isImage(attachment.title, attachment.mimetype ?? attachment.type)"
                       :key="`carousel-${record.row.id}-${index}`"
-                      class="h-52"
+                      class="h-52 pasphoto"
                       :class="[`${coverImageObjectFitClass}`]"
                       :srcs="getPossibleAttachmentSrc(attachment, 'card_cover')"
                       @click="expandFormClick($event, record)"
@@ -442,6 +442,14 @@ watch(
     />
   </Suspense>
 </template>
+
+<style>
+.pasphoto {
+  width: 300px !important;
+  height: 400px !important;
+  object-fit: cover !important;
+}
+</style>
 
 <style lang="scss" scoped>
 .nc-gallery-container,
