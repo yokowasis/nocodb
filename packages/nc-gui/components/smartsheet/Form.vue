@@ -478,7 +478,7 @@ async function handleAddOrRemoveAllColumns<T>(value: T) {
 }
 
 async function checkSMTPStatus() {
-  if (emailMe.value && !isEeUI) {
+  if (emailMe.value && isEeUI) {
     const emailPluginActive = await $api.plugin.status('SMTP')
     if (!emailPluginActive) {
       emailMe.value = false
@@ -589,7 +589,7 @@ const handleChangeBackground = (color: string) => {
 }
 
 const openUploadImage = (isUploadBanner: boolean) => {
-  if (!isEditable || !isEeUI) return
+  if (!isEditable || isEeUI) return
 
   imageCropperData.value.uploadConfig = {
     path: [NOCO, base.value.id, meta.value?.id, formViewData.value?.id].join('/'),
@@ -938,7 +938,7 @@ useEventListener(
                     />
                     <div class="absolute bottom-0 right-0 hidden group-hover:block">
                       <div class="flex items-center space-x-1 m-2">
-                        <NcTooltip :disabled="isEeUI">
+                        <NcTooltip :disabled="!isEeUI">
                           <template #title>
                             <div class="text-center">
                               {{ $t('msg.info.thisFeatureIsOnlyAvailableInEnterpriseEdition') }}
@@ -950,7 +950,7 @@ useEventListener(
                             size="small"
                             class="nc-form-upload-banner-btn"
                             data-testid="nc-form-upload-banner-btn"
-                            :disabled="!isEeUI"
+                            :disabled="isEeUI"
                             @click="openUploadImage(true)"
                           >
                             <div class="flex gap-2 items-center">
@@ -962,7 +962,7 @@ useEventListener(
                             </div>
                           </NcButton>
                         </NcTooltip>
-                        <NcTooltip v-if="isEeUI && formViewData.banner_image_url">
+                        <NcTooltip v-if="!isEeUI && formViewData.banner_image_url">
                           <template #title> {{ $t('general.delete') }} {{ $t('general.banner') }} </template>
                           <NcButton
                             type="secondary"
@@ -1017,7 +1017,7 @@ useEventListener(
                               class="items-center space-x-1 flex-nowrap m-3"
                               :class="formViewData.logo_url ? 'hidden absolute top-0 left-0 group-hover:flex' : 'flex'"
                             >
-                              <NcTooltip :disabled="isEeUI">
+                              <NcTooltip :disabled="!isEeUI">
                                 <template #title>
                                   <div class="text-center">
                                     {{ $t('msg.info.thisFeatureIsOnlyAvailableInEnterpriseEdition') }}
@@ -1029,7 +1029,7 @@ useEventListener(
                                   size="small"
                                   class="nc-form-upload-logo-btn"
                                   data-testid="nc-form-upload-log-btn"
-                                  :disabled="!isEeUI"
+                                  :disabled="isEeUI"
                                   @click="openUploadImage(false)"
                                 >
                                   <div class="flex gap-2 items-center">
@@ -1038,7 +1038,7 @@ useEventListener(
                                   </div>
                                 </NcButton>
                               </NcTooltip>
-                              <NcTooltip v-if="isEeUI && formViewData.logo_url">
+                              <NcTooltip v-if="!isEeUI && formViewData.logo_url">
                                 <template #title> {{ $t('general.delete') }} {{ $t('general.logo') }} </template>
                                 <NcButton
                                   type="secondary"
@@ -1666,7 +1666,7 @@ useEventListener(
                             <span>{{ $t('labels.hideNocodbBranding') }}</span>
 
                             <a-switch
-                              v-if="isEeUI"
+                              v-if="!isEeUI"
                               v-e="[`a:form-view:hide-branding`]"
                               :checked="parseProp(formViewData.meta)?.hide_branding"
                               size="small"
