@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import GalleryNew2 from './GalleryNew2.vue'
 import { ViewTypes, isVirtualCol } from 'nocodb-sdk'
 import type { Row as RowType } from '#imports'
 
@@ -322,7 +321,6 @@ watch(
                   <img class="object-contain w-[48px] h-[48px]" src="~assets/icons/FileIconImageBox.png" />
                 </div>
               </template>
-              <GalleryNew2 description="This is a dynamic description passed as a prop." :title="displayField.title" />
               <div class="flex flex-col gap-3 !children:pointer-events-none">
                 <h2 v-if="displayField" class="nc-card-display-value-wrapper">
                   <template v-if="!isRowEmpty(record, displayField)">
@@ -447,9 +445,39 @@ watch(
 
 <style>
 .pasphoto {
-  width: 300px !important;
-  height: 400px !important;
+  /* width: 100% !important;
+  height: 200px !important; */
   object-fit: cover !important;
+}
+.nc-gallery-container,
+.nc-gallery-container-skeleton {
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) !important;
+}
+
+@media print {
+  .pasphoto {
+    /* width: 100% !important;
+  height: 200px !important; */
+    object-fit: cover !important;
+    object-position: top center !important;
+  }
+
+  .ant-carousel {
+    height: 150px !important;
+    min-height: 10px !important;
+  }
+
+  .ant-carousel .slick-slider,
+  .ant-carousel .slick-list .slick-track,
+  .ant-carousel .slick-list .slick-track div,
+  .ant-carousel .slick-list {
+    height: 100% !important;
+  }
+
+  .nc-gallery-container,
+  .nc-gallery-container-skeleton {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)) !important;
+  }
 }
 </style>
 
